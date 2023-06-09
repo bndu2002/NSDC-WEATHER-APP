@@ -100,15 +100,26 @@ const getWeatherByName = async (req, res) => {
 }
 
 
-const getWeatherBYLongLat = async(req,res)=>{
+const getWeatherBYLongLat = async (req, res) => {
     try {
 
-        
-        
+        const options = {
+            method: 'GET',
+            url: `https://api.tomorrow.io/v4/timelines?location=28.7041,77.1025&fields=humidity&timesteps=1h&units=metric&apikey=AJtcMayEAmEpDyVzNLF7W5zr1Pdpk7VQ`
+        }
+
+        const response = await axios(options)
+
+        if (!response) return res.status(400).send({ status: false, message: "Error In Response" })
+
+        let { data } = response
+
+        return res.status(200).send({ status: true, message: 'Success', data: data })
+
     } catch (error) {
         return res.status(500).send({ status: false, message: error.message })
     }
 }
 
 
-module.exports = { getWeatherByName }
+module.exports = { getWeatherByName, getWeatherBYLongLat }

@@ -103,9 +103,20 @@ const getWeatherByName = async (req, res) => {
 const getWeatherBYLongLat = async (req, res) => {
     try {
 
+        const apikey = process.env.API_KEY
+
+       // const { location, fields, timesteps, units } = req.query
+
+       let location = "28.7041,77.1025"
+       let fields = 'temperature'
+       let units = 'metric'
+       let timesteps = '1h'
+
+        console.log(req.query)
+
         const options = {
             method: 'GET',
-            url: `https://api.tomorrow.io/v4/timelines?location=28.7041,77.1025&fields=humidity&timesteps=1h&units=metric&apikey=AJtcMayEAmEpDyVzNLF7W5zr1Pdpk7VQ`
+            url: `https://api.tomorrow.io/v4/timelines?location=${location}&fields=${fields}&timesteps=${timesteps}&units=${units}&apikey=${apikey}`
         }
 
         const response = await axios(options)

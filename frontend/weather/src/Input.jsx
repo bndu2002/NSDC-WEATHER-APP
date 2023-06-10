@@ -48,6 +48,10 @@ function Input({ setweatherDetails , setbyLongClicked }) {
     setweatherDetails(result);
   };
 
+  const handleOnClick = ()=>{
+    setbyLongClicked(true)
+  }
+
   return (
     <>
       <ContainerBoxStyled>
@@ -55,9 +59,7 @@ function Input({ setweatherDetails , setbyLongClicked }) {
           <InputBaseStyle
             placeholder="Enter City Name"
             onChange={handleOnChange}
-          >
-            Search
-          </InputBaseStyle>
+          />
           <SearchIconWrapper>
             <Searchicons
               onClick={getWeatherInfo}
@@ -67,11 +69,9 @@ function Input({ setweatherDetails , setbyLongClicked }) {
         </SearchContainerStyle>
         <ButtonStyled
           variant="contained"
-          onClick={() => {
-            setbyLongClicked(true)
-          }}
+          onClick={handleOnClick }
         >
-          By Long & Lat
+          By Long & Lat ?
         </ButtonStyled>
       </ContainerBoxStyled>
     </>

@@ -4,7 +4,8 @@ import Sunrise from './images/bg.jpg'
 import Night from './images/night.jpg'
 import Details from './Details';
 import Input from './Input';
-import LongLat from "./LongLat";
+import LongLatDetails from "./LongLatDetails";
+import LongLatInput from './LongLatInput';
 
 
 const OuterComponentStyled = styled(Box)({
@@ -46,10 +47,9 @@ function Home() {
         <OuterComponentStyled >
             <ImageBoxStyled style={{ backgroundImage: `url(${imageUrl})` }}>
             </ImageBoxStyled>
-            
             <Box style={{ width: '73%', height: '80%', overflow: 'auto' }}>
-                <Input setweatherDetails={setweatherDetails} setbyLongClicked={setbyLongClicked} />
-                {byLongClicked ? <LongLat /> : <Details weatherDetails={weatherDetails} byLongClicked={byLongClicked} />
+                {byLongClicked ? <LongLatInput/> :  <Input setweatherDetails={setweatherDetails} setbyLongClicked={setbyLongClicked} byLongClicked={byLongClicked}/>}
+                {byLongClicked ? <LongLatDetails /> : <Details weatherDetails={weatherDetails} byLongClicked={byLongClicked} />
                 
                 }
             </Box>

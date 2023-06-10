@@ -1,9 +1,10 @@
 import axios from 'axios'
 
+const url = 'http://localhost:8000/api/weather/name'
+const url2 = 'http://localhost:8000/api/weather/long&lat'
+
 export const getWeatherInfoFromBackend = async (city) => {
     try {
-
-        const url = 'http://localhost:8000/api/weather/name'
 
         const options = {
             method: 'GET',
@@ -18,6 +19,26 @@ export const getWeatherInfoFromBackend = async (city) => {
         return response.data
 
     } catch (error) {
-        console.log(error.message)
+        alert(error.message)
+    }
+}
+
+export const getLongDetailsFromBackend = async (location, fields, timesteps, units) => {
+    try {
+        const options = {
+            method: 'GET',
+            url: `${url2}?location=${location}&fields=${fields}&timesteps=${timesteps}&units=${units}`
+        }
+
+        let response = await axios(options)
+
+        if (!response) return alert('error occured')
+
+        console.log('from longi and lat ', response)
+
+        return response.data
+
+    } catch (error) {
+        alert(error.message)
     }
 }

@@ -18,7 +18,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LongLat from "./LongLat";
+import LongLat from "./LongLatDetails";
 
 const CardStyled = styled(Card)({
 

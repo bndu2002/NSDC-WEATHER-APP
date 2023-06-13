@@ -28,12 +28,12 @@ const InputBaseStyle = styled(InputBase)`
   font-size: unset;
 `;
 
-function LongLatInput() {
+function LongLatInput({ setLongitudeBasedWeatherDetails }) {
   const [query, setQuery] = useState({
     location: "",
     fields: "",
     timesteps: "",
-    units: " ",
+    units: "",
   });
 
   const handleOnChange = (e) => {
@@ -44,14 +44,10 @@ function LongLatInput() {
   };
 
   const getWeather = async () => {
-    let { location, fields, timesteps, units } = query;
-    let result = await getLongDetailsFromBackend(
-      location,
-      fields,
-      timesteps,
-      units
-    );
-    console.log('result from longLatInput')
+    let { location, fields } = query;
+    let {data} = await getLongDetailsFromBackend(location, fields);
+    setLongitudeBasedWeatherDetails(data);
+    console.log("result from longLatInput", data);
   };
 
   return (
@@ -60,7 +56,7 @@ function LongLatInput() {
         <Box style={{ display: "flex", marginBottom: "3px" }}>
           <SearchContainerStyle>
             <InputBaseStyle
-              placeholder="Longitude or Latitude"
+              placeholder="Longitude OR Latitude"
               name="location"
               value={query.location}
               onChange={handleOnChange}
@@ -68,28 +64,10 @@ function LongLatInput() {
           </SearchContainerStyle>
           <SearchContainerStyle>
             <InputBaseStyle
-               placeholder="Units"
-              onChange= {handleOnChange}
-              value= {query.units}
-              name= "units"
-            />
-          </SearchContainerStyle>
-        </Box>
-        <Box style={{ display: "flex" }}>
-          <SearchContainerStyle>
-            <InputBaseStyle
-              placeholder="Time Stamps"
-              name="timesteps"
-              onChange={handleOnChange}
-              value={query.timesteps}
-            />
-          </SearchContainerStyle>
-          <SearchContainerStyle>
-            <InputBaseStyle
-              placeholder="Fields"
-              onChange={handleOnChange}
+              placeholder="Enter Humidity OR Temperature"
               name="fields"
               value={query.fields}
+              onChange={handleOnChange}
             />
           </SearchContainerStyle>
         </Box>

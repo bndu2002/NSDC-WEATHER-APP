@@ -37,6 +37,7 @@ const getImageUrl = () => {
 
 function Home() {
     const [weatherDetails, setweatherDetails] = useState({});
+    const [LongitudeBasedWeatherDetails, setLongitudeBasedWeatherDetails] = useState({})
     const [byLongClicked, setbyLongClicked] = useState(false)
 
     const imageUrl = getImageUrl();
@@ -48,9 +49,12 @@ function Home() {
             <ImageBoxStyled style={{ backgroundImage: `url(${imageUrl})` }}>
             </ImageBoxStyled>
             <Box style={{ width: '73%', height: '80%', overflow: 'auto' }}>
-                {byLongClicked ? <LongLatInput/> :  <Input setweatherDetails={setweatherDetails} setbyLongClicked={setbyLongClicked} byLongClicked={byLongClicked}/>}
-                {byLongClicked ? <LongLatDetails /> : <Details weatherDetails={weatherDetails} byLongClicked={byLongClicked} />
-                
+                {byLongClicked ? <LongLatInput setLongitudeBasedWeatherDetails={setLongitudeBasedWeatherDetails} /> : <Input setweatherDetails={setweatherDetails} setbyLongClicked={setbyLongClicked} byLongClicked={byLongClicked} />}
+                {byLongClicked ?
+                    <LongLatDetails LongitudeBasedWeatherDetails={LongitudeBasedWeatherDetails} />
+                    :
+                    <Details weatherDetails={weatherDetails} byLongClicked={byLongClicked} />
+
                 }
             </Box>
         </OuterComponentStyled>

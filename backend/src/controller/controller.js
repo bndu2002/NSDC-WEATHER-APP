@@ -105,12 +105,10 @@ const getWeatherBYLongLat = async (req, res) => {
 
         const apikey = process.env.API_KEY
 
-       // const { location, fields, timesteps, units } = req.query
+        const { location, fields } = req.query
 
-       let location = "28.7041,77.1025"
-       let fields = 'temperature'
-       let units = 'metric'
-       let timesteps = '1h'
+        let units = 'metric'
+        let timesteps = '1h'
 
         console.log(req.query)
 
@@ -125,7 +123,30 @@ const getWeatherBYLongLat = async (req, res) => {
 
         let { data } = response
 
-        return res.status(200).send({ status: true, message: 'Success', data: data })
+        console.log('data===>', data.data.timelines)
+
+        let intervals = data.data.timelines[0].intervals
+
+        let finalData = []
+        for (let i = 0; i < 6 && i < intervals.length; i++) {
+            let utcTime = intervals[i].startTime
+            let currTime = new Date(utcTime).toLocaleTimeString()
+            // console.log(intervals[i])
+            // { startTime: '2023-06-13T08:00:00Z', values: { humidity: 76 } }
+            // { startTime: '2023-06-13T09:00:00Z', values: { humidity: 63.86 } }
+            // { startTime: '2023-06-13T10:00:00Z', values: { humidity: 56.15 } }
+            // { startTime: '2023-06-13T11:00:00Z', values: { humidity: 43.01 } }
+            // { startTime: '2023-06-13T12:00:00Z', values: { humidity: 34.46 } }
+            // { startTime: '2023-06-13T13:00:00Z', values: { humidity: 33.7 } }
+            let obj = {
+                time: currTime,
+                [fields]: intervals[i].values[fields]//accessing the key on the basis of what is coming in fields
+            }
+            console.log(obj)
+            finalData.push(obj)
+        }
+
+        return res.status(200).send({ status: true, message: 'Success', data: finalData })
 
     } catch (error) {
         return res.status(500).send({ status: false, message: error.message })

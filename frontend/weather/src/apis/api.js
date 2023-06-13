@@ -16,6 +16,7 @@ export const getWeatherInfoFromBackend = async (city) => {
         if (!response) return alert('error occured')
 
         console.log(response)
+        
         return response.data
 
     } catch (error) {
@@ -23,11 +24,11 @@ export const getWeatherInfoFromBackend = async (city) => {
     }
 }
 
-export const getLongDetailsFromBackend = async (location, fields, timesteps, units) => {
+export const getLongDetailsFromBackend = async (location, fields) => {
     try {
         const options = {
             method: 'GET',
-            url: `${url2}?location=${location}&fields=${fields}&timesteps=${timesteps}&units=${units}`
+            url: `${url2}?location=${location}&fields=${fields}`
         }
 
         let response = await axios(options)
